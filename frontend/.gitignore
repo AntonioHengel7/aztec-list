@@ -23,8 +23,7 @@ yarn-error.log*
 pnpm-lock.yaml
 .pnpm-debug.log*
 
-# bun
-bun.lock
+# bun (bun.lock is the canonical lockfile — committed)
 bun.lockb
 .bun/
 
