@@ -88,6 +88,21 @@ bun dev
 - The `dev` script echoes `Dev server: http://localhost:3000` before handing off to Next.js so the link is always visible/clickable.
 - Other scripts map 1:1: e.g., `bun run lint` ↔ `npm run lint`, `bun run build` ↔ `npm run build`, etc.
 
+## Security & DevSecOps
+
+The repository ships with an automated security pipeline that runs on every push and pull request to `main`, plus a weekly scheduled scan.
+
+| Scanner | What it catches | Where to view results |
+| :--- | :--- | :--- |
+| **CodeQL** | Static analysis (SAST) for Python and TypeScript/JavaScript — injection flaws, unsafe APIs, common CWE patterns | Security tab → Code scanning |
+| **gitleaks** | Hard-coded secrets, API keys, and credentials across the full git history | Security tab → Secret scanning + CI job logs |
+| **pip-audit** | Known CVEs in backend Python dependencies (PyPI advisory DB) | Actions tab → "Security Audit" workflow |
+| **npm audit** | Known CVEs in frontend Node dependencies (npm advisory DB, high/critical only) | Actions tab → "Security Audit" workflow |
+| **Dependabot** | Outdated dependencies (`pip`, `npm`, GitHub Actions, Docker base images) with auto-PRs for minor/patch updates | Pull Requests tab + Security tab → Dependabot |
+| **pre-commit gitleaks** | Local defense — blocks secrets from ever reaching the remote | Triggered on `git commit` |
+
+Workflow files live in `.github/workflows/` (`codeql.yml`, `gitleaks.yml`, `security-audit.yml`) and `.github/dependabot.yml`. Secrets and credentials are kept out of source control via `.env.example` templates and a strict `.gitignore`.
+
 ## Code Quality & Pre-commit Hooks
 
 This monorepo uses **[pre-commit](https://pre-commit.com/)** to enforce code quality standards. Hooks run automatically on commit for both backend (Python) and frontend (TypeScript).

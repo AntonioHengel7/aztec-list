@@ -2,6 +2,8 @@
  * Unit tests for Header component
  */
 
+import "@testing-library/jest-dom";
+
 import { screen, fireEvent, waitFor, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Header } from "../header";
