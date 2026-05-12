@@ -31,8 +31,8 @@ jobs:
       - name: Run pip-audit
         run: uv run --with pip-audit pip-audit --strict
 
-  npm-audit:
-    name: npm audit (frontend)
+  bun-audit:
+    name: bun audit (frontend)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -41,13 +41,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: "20"
+          bun-version: latest
 
       - name: Install dependencies
-        run: npm ci
+        run: bun install --frozen-lockfile
 
-      - name: Run npm audit (high/critical only)
-        run: npm audit --audit-level=high
+      - name: Run bun audit
+        run: bun audit

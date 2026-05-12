@@ -72,21 +72,19 @@ cd frontend
 cp .env.example .env.local
 # Edit .env.local if you need to change API URLs (defaults work for local dev)
 
-# 3) Install dependencies (prefer Bun)
+# 3) Install dependencies (Bun is the canonical package manager)
 bun install
-# fallbacks: npm install | yarn install | pnpm install
 
 # 4) Start the dev server
 bun dev
-# fallbacks: npm run dev | yarn dev | pnpm dev
 
 # 5) Open your browser at the Next.js URL printed above
 # (or go directly to http://localhost:3000)
 ```
 
-- Bun is preferred, but the npm/yarn/pnpm commands listed in the comments behave the same if that fits your setup better.
+- Bun is the canonical package manager for the frontend — `bun.lock` is the committed lockfile and CI uses `bun install --frozen-lockfile`. Do not commit `package-lock.json`, `yarn.lock`, or `pnpm-lock.yaml`.
 - The `dev` script echoes `Dev server: http://localhost:3000` before handing off to Next.js so the link is always visible/clickable.
-- Other scripts map 1:1: e.g., `bun run lint` ↔ `npm run lint`, `bun run build` ↔ `npm run build`, etc.
+- Scripts: `bun run lint`, `bun run build`, `bun run test`, `bun audit`, etc.
 
 ## Security & DevSecOps
 
@@ -97,7 +95,7 @@ The repository ships with an automated security pipeline that runs on every push
 | **CodeQL** | Static analysis (SAST) for Python and TypeScript/JavaScript — injection flaws, unsafe APIs, common CWE patterns | Security tab → Code scanning |
 | **gitleaks** | Hard-coded secrets, API keys, and credentials across the full git history | Security tab → Secret scanning + CI job logs |
 | **pip-audit** | Known CVEs in backend Python dependencies (PyPI advisory DB) | Actions tab → "Security Audit" workflow |
-| **npm audit** | Known CVEs in frontend Node dependencies (npm advisory DB, high/critical only) | Actions tab → "Security Audit" workflow |
+| **bun audit** | Known CVEs in frontend Node dependencies (npm advisory DB) | Actions tab → "Security Audit" workflow |
 | **Dependabot** | Outdated dependencies (`pip`, `npm`, GitHub Actions, Docker base images) with auto-PRs for minor/patch updates | Pull Requests tab + Security tab → Dependabot |
 | **pre-commit gitleaks** | Local defense — blocks secrets from ever reaching the remote | Triggered on `git commit` |
 
