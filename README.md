@@ -82,7 +82,7 @@ bun dev
 # (or go directly to http://localhost:3000)
 ```
 
-- Bun is the canonical package manager for the frontend — `bun.lock` is the committed lockfile and CI uses `bun install --frozen-lockfile`. Do not commit `package-lock.json`, `yarn.lock`, or `pnpm-lock.yaml`.
+- Bun is the canonical package manager for the frontend — `bun.lock` is the committed lockfile. Do not commit `package-lock.json`, `yarn.lock`, or `pnpm-lock.yaml`.
 - The `dev` script echoes `Dev server: http://localhost:3000` before handing off to Next.js so the link is always visible/clickable.
 - Scripts: `bun run lint`, `bun run build`, `bun run test`, `bun audit`, etc.
 
